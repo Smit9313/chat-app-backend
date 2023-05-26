@@ -1,5 +1,6 @@
 const express = require("express");
 const dotenv = require("dotenv");
+const cors = require('cors');
 
 const { chats } = require("./data/data");
 const req = require("express/lib/request");
@@ -19,7 +20,7 @@ connectDB();
 const app = express();
 
 app.use(express.json()); // to accept json data
-
+app.use(cors()) 
 // app.get('/',(req,res)=>{
 //     res.send("API running!");
 // })
