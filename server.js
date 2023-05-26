@@ -19,11 +19,17 @@ dotenv.config();
 connectDB();
 const app = express();
 
+
 app.use(express.json()); // to accept json data
 app.use(cors()) 
 // app.get('/',(req,res)=>{
 //     res.send("API running!");
 // })
+
+app.use((req, res, next) => {
+  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+  next();
+});
 
 app.use("/api/user", userRoutes);
 app.use("/api/chat", chatRoutes);
@@ -42,7 +48,7 @@ const server = app.listen(
 const io = require("socket.io")(server, {
   pingTimeout: 60000,
   cors: {
-    origin: "http://localhost:3000",
+    origin: "https://chat-app-s.onrender.com",
     // credentials: true,
   },
 });
